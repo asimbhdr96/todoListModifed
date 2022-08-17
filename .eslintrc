@@ -1,0 +1,15 @@
+{
+  "parser": "@babel/eslint-parser",
+  "rules": {
+
+        "object-shorthand": [2, "always", {
+          "ignoreConstructors": false,
+          "avoidQuotes": false, // this is the override vs airbnb
+        }],
+        "max-len": [2, 120, {
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreComments": true,
+        }]
+  }
+}
