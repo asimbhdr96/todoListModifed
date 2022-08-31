@@ -2,12 +2,12 @@ import React from 'react'
 
 import ActiveTodo from './ActiveTodo'
 const ActiveTasks = ({todos}) => {
-  console.log(todos)
+
 
   return (
 
 
-      todos.map((elem) => {
+      todos?.map((elem) => {
         if(elem.isFinished === false){
           return (
 

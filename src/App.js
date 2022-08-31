@@ -1,32 +1,26 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { getTodos, deleteTodo, updateTodo,addTodo } from './apiCalls';
 import ActiveTasks from './components/ActiveTasks';
 import CompletedTasks from './components/CompletedTasks';
-
+import { useSelector,useDispatch } from 'react-redux';
+import {fetchTodos,createTodo,deleteTodo,updateTodo} from './actions/todos'
 
 const App = () => {
+  const dispatch = useDispatch()
+  const todoList = useSelector((state) => state.todos)
   const [newTodo, setnewTodo] = useState({
     title : '',
-    isFinished : true,
+    isFinished : false,
   })
-  const [todoList,setTodoList] = useState([]);
+  // const [todoList,setTodoList] = useState([]);
 
   useEffect(()=> {
-    getTodos().then((data) => setTodoList(data))
+    dispatch(fetchTodos())
   },[])
-
+  console.log('asdasd',todoList.todos)
 
   const handleSubmit = () => {
-    addTodo(newTodo).then((data) => {
-      console.log(data)
-      setTodoList([...todoList,data])
-    })
-    setnewTodo(prevState => ({
-      ...prevState,
-      title : '',
-      isFinished : true
-    }))
+    dispatch(createTodo(newTodo))
   }
 
 
@@ -50,10 +44,10 @@ const App = () => {
 
 
     <div className="active-tasks-container">
-       <ActiveTasks todos={todoList} />
+       <ActiveTasks todos = {todoList.todos} />
     </div>
     <div className="completed-tasks-container">
-       <CompletedTasks todos={todoList}/>
+       <CompletedTasks todos = {todoList.todos}/>
     </div>
 
 
